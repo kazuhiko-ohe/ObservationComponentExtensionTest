@@ -4,8 +4,11 @@ Profile: ExampleObservation
 Parent: Observation
 Id: example-observation
 
-* referenceRange.low.extension ..1
 * referenceRange.low.extension.url=$ObsCompRefRangeLimit
+* referenceRange.low.extension.valueCode  1..1
+
+* component.referenceRange.low.extension.url=$ObsCompRefRangeLimit
+* component.referenceRange.low.extension.valueCode  1..1
 
 // -----------------------------------------
 //JP_eCS_ObsRefRangeLimit
