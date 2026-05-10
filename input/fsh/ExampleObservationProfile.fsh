@@ -1,7 +1,12 @@
 Alias: $ObsCompRefRangeLimit = http://example.com/Extension/StructureDefinition/ObsCompRefRangeLimit
 
-Profile: ExampleObservation
+Profile: ObservationParent
 Parent: Observation
+Id: observation-parent
+
+
+Profile: ExampleObservation
+Parent: ObservationParent
 Id: example-observation
 
 * referenceRange.low.extension.url=$ObsCompRefRangeLimit
