@@ -14,19 +14,25 @@ Id: example-observation
 * referenceRange.low.extension.url=$ObsCompRefRangeLimit
 * referenceRange.low.extension.valueCode  1..1
 
-
 * referenceRange.low.value 1..1  MS
 * referenceRange.low.unit 0..1 MS
 * referenceRange.low.system 0..1 MS
 * referenceRange.low.code 0..1 MS
 
 * component MS
+  * referenceRange 0..1 MS
+  * referenceRange.id ..0
+  * referenceRange.extension ..0
+  * referenceRange.modifierExtension ..0
+  * referenceRange.low.id ..0
+
   * referenceRange.low.extension.url=$ObsCompRefRangeLimit
   * referenceRange.low.extension.valueCode  1..1
   * referenceRange.low.value 1..1  MS
   * referenceRange.low.unit 0..1 MS
   * referenceRange.low.system 0..1 MS
   * referenceRange.low.code 0..1 MS
+  * referenceRange.low.extension.valueCode = #> (exactly)
 
 // -----------------------------------------
 //JP_eCS_ObsRefRangeLimit
