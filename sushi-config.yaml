@@ -12,9 +12,9 @@ publisher:
   url: http://example.org
 jurisdiction: http://unstats.un.org/unsd/methods/m49/m49.htm#392 "Japan"
 
-# FHIR R4 core only. Add JP-Core or other packages here if needed.
-dependencies:
-  hl7.fhir.r4.core: 4.0.1
+# FHIR R4 core only. 
+#dependencies:
+#  hl7.fhir.r4.core: 4.0.1
 
 menu:
   Home: index.html
