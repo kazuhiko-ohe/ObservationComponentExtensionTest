@@ -1,0 +1,115 @@
+name: Build FHIR IG
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main, ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build IG Publisher site
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+
+      - name: Install OS packages required by IG Publisher
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            graphviz \
+            plantuml \
+            fonts-noto \
+            fonts-noto-cjk
+
+      - name: Install SUSHI and Jekyll
+        run: |
+          npm install -g fsh-sushi@latest
+          gem install jekyll bundler --no-document
+          sushi --version
+          jekyll --version
+
+      - name: Cache FHIR package cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.fhir/packages
+          key: fhir-packages-${{ runner.os }}-${{ hashFiles('sushi-config.yaml', 'ig.ini', 'input/**/*.fsh', 'input/**/*.json', 'input/**/*.xml') }}
+          restore-keys: |
+            fhir-packages-${{ runner.os }}-
+
+      - name: Download latest HL7 FHIR IG Publisher
+        run: |
+          curl -L --fail --retry 3 \
+            -o publisher.jar \
+            https://github.com/HL7/fhir-ig-publisher/releases/latest/download/publisher.jar
+          java -jar publisher.jar -version
+
+      - name: Build Implementation Guide with IG Publisher
+        run: |
+          java -Xmx8g -jar publisher.jar -ig ig.ini
+
+      - name: Upload generated IG as workflow artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: generated-fhir-ig
+          path: |
+            output
+            input-cache
+            temp
+            fsh-generated
+          if-no-files-found: warn
+
+      - name: Setup GitHub Pages
+        if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: output
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
