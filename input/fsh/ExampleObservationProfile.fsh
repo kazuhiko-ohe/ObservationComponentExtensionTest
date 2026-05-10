@@ -20,5 +20,7 @@ Id: obsRefRangeLimit
 * ^fhirVersion = #4.0.1
 * ^context[+].type = #element
 * ^context[=].expression = "Observation.referenceRange.low"
+* ^context[+].type = #element
+* ^context[=].expression = "Observation.component.referenceRange.low"
 * value[x] only code
 * valueCode from http://hl7.org/fhir/ValueSet/quantity-comparator
