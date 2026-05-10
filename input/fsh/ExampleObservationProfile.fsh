@@ -20,7 +20,7 @@ Id: example-observation
 * referenceRange.low.system 0..1 MS
 * referenceRange.low.code 0..1 MS
 
-* compobebt MS
+* component MS
   * referenceRange.low.extension.url=$ObsCompRefRangeLimit
   * referenceRange.low.extension.valueCode  1..1
   * referenceRange.low.value 1..1  MS
