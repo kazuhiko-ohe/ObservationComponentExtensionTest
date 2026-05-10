@@ -14,18 +14,19 @@ Id: example-observation
 * referenceRange.low.extension.url=$ObsCompRefRangeLimit
 * referenceRange.low.extension.valueCode  1..1
 
+
 * referenceRange.low.value 1..1  MS
 * referenceRange.low.unit 0..1 MS
 * referenceRange.low.system 0..1 MS
 * referenceRange.low.code 0..1 MS
 
-* component.referenceRange.low.extension.url=$ObsCompRefRangeLimit
-* component.referenceRange.low.extension.valueCode  1..1
-
-* component.referenceRange.low.value 1..1  MS
-* component.referenceRange.low.unit 0..1 MS
-* component.referenceRange.low.system 0..1 MS
-* component.referenceRange.low.code 0..1 MS
+* compobebt MS
+  * referenceRange.low.extension.url=$ObsCompRefRangeLimit
+  * referenceRange.low.extension.valueCode  1..1
+  * referenceRange.low.value 1..1  MS
+  * referenceRange.low.unit 0..1 MS
+  * referenceRange.low.system 0..1 MS
+  * referenceRange.low.code 0..1 MS
 
 // -----------------------------------------
 //JP_eCS_ObsRefRangeLimit
@@ -39,5 +40,7 @@ Id: obsRefRangeLimit
 * ^context[=].expression = "Observation.referenceRange.low"
 * ^context[+].type = #element
 * ^context[=].expression = "Observation.component.referenceRange.low"
+* extension 0..0
+
 * value[x] only code
 * valueCode from http://hl7.org/fhir/ValueSet/quantity-comparator
