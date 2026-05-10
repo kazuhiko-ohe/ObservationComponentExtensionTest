@@ -3,11 +3,12 @@ Alias: $ObsCompRefRangeLimit = http://example.com/Extension/StructureDefinition/
 Profile: ObservationParent
 Parent: Observation
 Id: observation-parent
-
+* ^fhirVersion = #4.0.1
 
 Profile: ExampleObservation
 Parent: ObservationParent
 Id: example-observation
+* ^fhirVersion = #4.0.1
 
 * referenceRange.low.extension.url=$ObsCompRefRangeLimit
 * referenceRange.low.extension.valueCode  1..1
