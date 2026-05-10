@@ -41,15 +41,6 @@ jobs:
         with:
           ruby-version: '3.2'
 
-      - name: Install OS packages required by IG Publisher
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            graphviz \
-            plantuml \
-            fonts-noto \
-            fonts-noto-cjk
-
       - name: Install SUSHI and Jekyll
         run: |
           npm install -g fsh-sushi@latest
