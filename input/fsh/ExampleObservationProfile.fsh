@@ -10,11 +10,22 @@ Parent: ObservationParent
 Id: example-observation
 * ^fhirVersion = #4.0.1
 
+* referenceRange 0..*
 * referenceRange.low.extension.url=$ObsCompRefRangeLimit
 * referenceRange.low.extension.valueCode  1..1
 
+* referenceRange.low.value 1..1  MS
+* referenceRange.low.unit 0..1 MS
+* referenceRange.low.system 0..1 MS
+* referenceRange.low.code 0..1 MS
+
 * component.referenceRange.low.extension.url=$ObsCompRefRangeLimit
 * component.referenceRange.low.extension.valueCode  1..1
+
+* component.referenceRange.low.value 1..1  MS
+* component.referenceRange.low.unit 0..1 MS
+* component.referenceRange.low.system 0..1 MS
+* component.referenceRange.low.code 0..1 MS
 
 // -----------------------------------------
 //JP_eCS_ObsRefRangeLimit
