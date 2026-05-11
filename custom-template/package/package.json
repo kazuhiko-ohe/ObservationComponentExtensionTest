@@ -1,0 +1,12 @@
+{
+    "name": "fhir.test.ig-template",
+    "type": "fhir.template",
+    "license": "CC0-1.0",
+    "description": "IG Template",
+    "author": "https://fhir.example",
+    "canonical": "https://fhir.example/fhir.ig-template",
+    "base": "fhir.base.template",
+    "dependencies": {
+        "fhir.base.template": "current"
+    }
+}

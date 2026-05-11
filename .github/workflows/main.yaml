@@ -1,0 +1,62 @@
+name: Build FHIR IG
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build IG Publisher site
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+
+      - name: Install SUSHI and Jekyll
+        run: |
+          npm install -g fsh-sushi@latest
+          gem install jekyll bundler --no-document
+          sushi --version
+          jekyll --version
+
+      - name: Download IG Publisher latest (not 1.6.11)
+        uses: Legion2/download-release-action@v2.1.0
+        with:
+          repository: HL7/fhir-ig-publisher
+          tag: 'latest'
+          path: .
+          file: publisher.jar
+
+      - name: Build Implementation Guide with IG Publisher
+        run: |
+          java -Xmx8g -jar publisher.jar -ig ig.ini
+

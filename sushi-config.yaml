@@ -1,0 +1,22 @@
+id: example.minimal.observation
+canonical: http://example.org/fhir/minimal-observation
+name: MinimalObservationIG
+title: Minimal Observation Profile IG
+status: draft
+version: 0.1.0
+fhirVersion: 4.0.1
+copyrightYear: 2026
+releaseLabel: ci-build
+publisher:
+  name: Example Publisher
+  url: http://example.org
+jurisdiction: http://unstats.un.org/unsd/methods/m49/m49.htm#392 "Japan"
+
+# FHIR R4 core only. 
+#dependencies:
+#  hl7.fhir.r4.core: 4.0.1
+
+
+menu:
+  Home: index.html
+  Artifacts: artifacts.html
